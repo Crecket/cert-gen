@@ -75,14 +75,20 @@ const optionDefinitions = [,
 const options = commandLineArgs(optionDefinitions);
 
 // create log object using options
-const log = require('./log')(options.verbose);
+const log = require('./utils/log')(options.verbose);
 
 // show options if debug is enabled
 log.debug(options);
 
 // display help
 if (options.help) {
-    require('./help.js');
+    require('./help');
+}
+
+// check if the target amount is atleast 1
+if (options.amount <= 0) {
+    log.error('Amount setting has to be 1 or higher');
+    process.exit();
 }
 
 // not looking for help but no type is set, throw a error
@@ -100,5 +106,8 @@ switch (options.type.toLowerCase()) {
         require('./rsa.js')(options)();
         break
     case 'ssl':
+        break;
+    default:
+        log.error('No valid type given (' + options.type + '). Enter either ssl or rsa');
         break;
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@crecket/certgen",
+  "name": "@crecket/cert-gen",
   "version": "1.0.0",
   "description": "Create RSA keysets and saves them in PEM format.",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "certgen": "bin/certgen.js"
+    "cert-gen": "bin/cert-gen.js"
   },
   "dependencies": {
     "chalk": "^1.1.3",

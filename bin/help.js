@@ -33,7 +33,7 @@ console.log(getUsage([
             {
                 name: "amount",
                 alias: "a",
-                description: "Amount of certificates to generate. Values above 1 will cause the script to add a integer to the scriptname. E.G. key1.key, key2.key ..."
+                description: "Amount of certificates to generate. Values above 1 will cause the script to prefix the filenames. E.G. 1key.key, 2key.key ..."
             },
             {
                 name: "single",
