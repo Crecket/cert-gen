@@ -1,9 +1,8 @@
 module.exports = function (options) {
-    // only fetch RSA options
-    const rsaOptions = options.rsa;
     const forge = require('node-forge');
+    const fs = require('fs');
 
-    return function (options) {
+    return function () {
         const log = require('./log.js')(options.verbose);
 
         // generate key set

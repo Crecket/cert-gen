@@ -1,20 +1,22 @@
+#! /usr/bin/env node
 "use strict";
+
 const commandLineArgs = require('command-line-args');
 const forge = require('node-forge');
 const fs = require('fs');
+
+// http://javascriptplayground.com/blog/2012/08/writing-a-command-line-node-tool/
 
 // argument options
 const optionDefinitions = [,
     {
         name: 'help',
-        group: ['rsa', 'ssl', '_all'],
         alias: 'h',
         type: Boolean
     },
     {
         name: 'verbose',
         alias: 'v',
-        group: ['rsa', 'ssl', '_all'],
         type: Boolean,
         default: true,
         defaultValue: false
@@ -22,7 +24,6 @@ const optionDefinitions = [,
     {
         name: 'type',
         alias: 't',
-        group: ['rsa', 'ssl', '_all'],
         type: String,
         required: true
     },
@@ -31,7 +32,6 @@ const optionDefinitions = [,
     {
         name: 'bitsize',
         alias: 'b',
-        group: ['rsa', '_all'],
         type: Number,
         defaultValue: 2048,
         default: true
@@ -39,7 +39,6 @@ const optionDefinitions = [,
     {
         name: 'amount',
         alias: 'a',
-        group: ['rsa', '_all'],
         type: Number,
         defaultValue: 1,
         default: true
@@ -47,7 +46,6 @@ const optionDefinitions = [,
     {
         name: 'single',
         alias: 's',
-        group: ['rsa', '_all'],
         type: Boolean,
         defaultValue: false,
         default: true
@@ -55,7 +53,6 @@ const optionDefinitions = [,
     {
         name: 'out',
         alias: 'o',
-        group: ['rsa', '_all'],
         type: String,
         defaultValue: './',
         default: true
@@ -63,14 +60,12 @@ const optionDefinitions = [,
     {
         name: 'private',
         type: String,
-        group: ['rsa', '_all'],
         defaultValue: 'private.key',
         default: true
     },
     {
         name: 'public',
         type: String,
-        group: ['rsa', '_all'],
         defaultValue: 'public.pem',
         default: true
     },
@@ -79,8 +74,8 @@ const optionDefinitions = [,
 // parse the arguments
 const options = commandLineArgs(optionDefinitions);
 
-// logger object
-const log = require('./log')(options._all.verbose);
+// create log object using options
+const log = require('./log')(options.verbose);
 
 // show options if debug is enabled
 log.debug(options);
@@ -107,6 +102,3 @@ switch (options.type.toLowerCase()) {
     case 'ssl':
         break;
 }
-
-// create rsa certificate
-rsa();

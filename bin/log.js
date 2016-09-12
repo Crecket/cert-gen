@@ -10,11 +10,6 @@ function log(color, input) {
 
 module.exports = function (verbose) {
     var loggers = {
-        log: function () {
-            if (verbose) {
-                for (var i = 0; i < arguments.length; i++) log(arguments[i]);
-            }
-        },
         debug: function () {
             if (verbose) {
                 for (var i = 0; i < arguments.length; i++) log('cyan', arguments[i]);
