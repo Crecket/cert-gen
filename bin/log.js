@@ -15,15 +15,13 @@ module.exports = function (verbose) {
                 for (var i = 0; i < arguments.length; i++) log(arguments[i]);
             }
         },
-        error: function () {
-            if (verbose) {
-                for (var i = 0; i < arguments.length; i++) log('red', arguments[i]);
-            }
-        },
         debug: function () {
             if (verbose) {
                 for (var i = 0; i < arguments.length; i++) log('cyan', arguments[i]);
             }
+        },
+        error: function () {
+            for (var i = 0; i < arguments.length; i++) log('red', arguments[i]);
         },
         info: function () {
             for (var i = 0; i < arguments.length; i++) log('magenta', arguments[i]);

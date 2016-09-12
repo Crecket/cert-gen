@@ -1,5 +1,11 @@
 module.exports = function (options) {
-    return function () {
+    // only fetch RSA options
+    const rsaOptions = options.rsa;
+    const forge = require('node-forge');
+
+    return function (options) {
+        const log = require('./log.js')(options.verbose);
+
         // generate key set
         log.debug('Generating keySet for bitsize: ' + options.bitsize);
 
@@ -39,10 +45,6 @@ module.exports = function (options) {
                 }
                 log.info('Saved RSA public key to: ' + targetPublicLocation);
             });
-
-
         });
-
-
     };
 };
