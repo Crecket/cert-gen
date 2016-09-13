@@ -24,11 +24,33 @@ const optionDefinitions = [,
     {
         name: 'type',
         alias: 't',
+        defaultOption: true,
+        default: 'rsa',
         type: String,
         required: true
     },
 
-    // rsa only options
+    // ssl
+    {
+        name: 'notBefore',
+        type: String,
+        defaultValue: 'now',
+        default: true
+    },
+    {
+        name: 'notAfter',
+        type: String,
+        defaultValue: '1 year',
+        default: true
+    },
+    {
+        name: 'issuer',
+        type: String,
+        defaultValue: '1 year',
+        default: true
+    },
+
+    // rsa
     {
         name: 'bitsize',
         alias: 'b',

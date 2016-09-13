@@ -1,0 +1,26 @@
+[
+  {
+    "name": "commonName",
+    "value": "localhost"
+  },
+  {
+    "name": "countryName",
+    "value": "US"
+  },
+  {
+    "shortName": "ST",
+    "value": "SomeState"
+  },
+  {
+    "name": "localityName",
+    "value": "someLocation"
+  },
+  {
+    "name": "organizationName",
+    "value": "CrecketCerts"
+  },
+  {
+    "shortName": "OU",
+    "value": "Test"
+  }
+]
