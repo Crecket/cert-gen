@@ -23,7 +23,7 @@ console.log(getUsage([
         ]
     },
     {
-        header: "RSA Options",
+        header: "RSA and SSL Options",
         optionList: [
             {
                 name: "bitsize",

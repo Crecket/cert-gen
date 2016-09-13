@@ -10,7 +10,7 @@ module.exports = function (options) {
 
     return {
         start: function (callback) {
-            log.debug('Starting RSA queue, generating ' + options.amount + ' keysets.');
+            log.debug('Starting queue, generating ' + options.amount + ' keysets.');
 
             // store callback in the object
             callbackFunction = callback;
@@ -28,11 +28,11 @@ module.exports = function (options) {
                 }
                 return true;
             }
-            log.debug('Finished RSA queue.');
+            log.debug('Finished queue.');
             return false;
         },
         reset: function () {
-            log.debug('Reset RSA queue.');
+            log.debug('Reset queue.');
             index = 0;
             callbackFunction = false;
         }

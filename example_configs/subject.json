@@ -9,7 +9,7 @@
   },
   {
     "shortName": "ST",
-    "value": "SomeState"
+    "value": "someState"
   },
   {
     "name": "localityName",
@@ -17,7 +17,7 @@
   },
   {
     "name": "organizationName",
-    "value": "CrecketCerts"
+    "value": "someName"
   },
   {
     "shortName": "OU",

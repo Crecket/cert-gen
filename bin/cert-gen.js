@@ -8,7 +8,8 @@ const fs = require('fs');
 // http://javascriptplayground.com/blog/2012/08/writing-a-command-line-node-tool/
 
 // argument options
-const optionDefinitions = [,
+const optionDefinitions = [
+    // general commands
     {
         name: 'help',
         alias: 'h',
@@ -21,6 +22,7 @@ const optionDefinitions = [,
         default: true,
         defaultValue: false
     },
+    // type selector
     {
         name: 'type',
         alias: 't',
@@ -30,27 +32,14 @@ const optionDefinitions = [,
         required: true
     },
 
-    // ssl
+    // ssl and rsa settings
     {
-        name: 'notBefore',
+        name: 'out',
+        alias: 'o',
         type: String,
-        defaultValue: 'now',
+        defaultValue: './',
         default: true
     },
-    {
-        name: 'notAfter',
-        type: String,
-        defaultValue: '1 year',
-        default: true
-    },
-    {
-        name: 'issuer',
-        type: String,
-        defaultValue: '1 year',
-        default: true
-    },
-
-    // rsa
     {
         name: 'bitsize',
         alias: 'b',
@@ -66,20 +55,6 @@ const optionDefinitions = [,
         default: true
     },
     {
-        name: 'single',
-        alias: 's',
-        type: Boolean,
-        defaultValue: false,
-        default: true
-    },
-    {
-        name: 'out',
-        alias: 'o',
-        type: String,
-        defaultValue: './',
-        default: true
-    },
-    {
         name: 'private',
         type: String,
         defaultValue: 'private.key',
@@ -91,7 +66,38 @@ const optionDefinitions = [,
         defaultValue: 'public.pem',
         default: true
     },
-    // { name: 'destination', alias: 'd',type: String, multiple: true, defaultOption: true }
+
+    // rsa only
+    {
+        name: 'single',
+        alias: 's',
+        type: Boolean,
+        defaultValue: false,
+        default: true
+    },
+
+    // ssl only
+    {
+        name: 'notBefore',
+        type: String,
+        defaultValue: 'now',
+        default: true
+    },
+    {
+        name: 'notAfter',
+        type: String,
+        defaultValue: 'in 365 days',
+        default: true
+    },
+    {
+        name: 'issuer',
+        type: String
+    },
+    {
+        name: 'subject',
+        multiple: true,
+        type: String
+    }
 ]
 // parse the arguments
 const options = commandLineArgs(optionDefinitions);
@@ -128,6 +134,7 @@ switch (options.type.toLowerCase()) {
         require('./rsa.js')(options)();
         break
     case 'ssl':
+        require('./ssl.js')(options)();
         break;
     default:
         log.error('No valid type given (' + options.type + '). Enter either ssl or rsa');

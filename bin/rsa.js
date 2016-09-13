@@ -3,7 +3,7 @@ module.exports = function (options) {
     const fs = require('fs');
     const store_file = require('./utils/store_file')(options);
     const log = require('./utils/log.js')(options.verbose);
-    const rsaQueue = require('./utils/rsa_queue.js')(options);
+    const queue = require('./utils/queue.js')(options);
 
     function generateKeypair(callback) {
 
@@ -81,7 +81,7 @@ module.exports = function (options) {
 
             // handle the resulting keypair
             handleKeySetResults(keypair, index, function () {
-                if(!rsaQueue.next()){
+                if(!queue.next()){
                 }
             });
         });
@@ -89,7 +89,7 @@ module.exports = function (options) {
 
     return function () {
         if (options.amount > 1) {
-            rsaQueue.start(needsNext);
+            queue.start(needsNext);
         } else {
             // generate a single keypair
             generateKeypair(function (keypair) {
