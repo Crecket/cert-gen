@@ -1,0 +1,22 @@
+{
+  "name": "@crecket/cert-gen",
+  "version": "1.0.0",
+  "description": "Create RSA keysets and saves them in PEM format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "cert-gen": "bin/cert-gen.js"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "chrono-node": "^1.2.4",
+    "command-line-args": "^3.0.1",
+    "command-line-usage": "^3.0.3",
+    "node-forge": "^0.6.39",
+    "node-rsa": "^0.3.2"
+  }
+}
