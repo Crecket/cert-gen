@@ -1,6 +1,8 @@
 module.exports = function (options) {
     const forge = require('node-forge');
     const fs = require('fs');
+    const chalk = require('chalk');
+    const chrono = require('chrono');
     const store_file = require('./utils/store_file')(options);
     const log = require('./utils/log.js')(options.verbose);
 
@@ -38,8 +40,7 @@ module.exports = function (options) {
     // generate a new keypair or use input from options
     function getRsaKeypair() {
         // TODO allow using existing key files
-        rsaKeyset = forge.pki.rsa.generateKeyPair(options.bitsize);
-        return rsaKeyset;
+        return forge.pki.rsa.generateKeyPair(options.bitsize);
     }
 
     // create crt and set everything except subject
