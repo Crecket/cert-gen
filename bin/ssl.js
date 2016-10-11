@@ -2,7 +2,7 @@ module.exports = function (options) {
     const forge = require('node-forge');
     const fs = require('fs');
     const chalk = require('chalk');
-    const chrono = require('chrono');
+    const chrono = require('chrono-node');
     const store_file = require('./utils/store_file')(options);
     const log = require('./utils/log.js')(options.verbose);
 
@@ -11,20 +11,16 @@ module.exports = function (options) {
         certificateBefore,
         rsaKeyset,
         issueAttributes;
-    return function () {
-        // check the initial generic settings
-        genericSettings();
-
-    };
 
     // some default settings which we'll be using everywhere, only need to check these once
     function genericSettings() {
 
         // parse the input dates
+        log.debug('');
         log.debug('Parsing notBefore and notAfter options');
         certificateAfter = chrono.parseDate(options.notAfter);
         certificateBefore = chrono.parseDate(options.notBefore);
-        log.debug(certificateAfter, certificateBefore);
+        log.debug('Not after: ', certificateAfter, 'Not before: ', certificateBefore);
 
         // check if the input dates are valid and properly parsed
         if (!certificateBefore) {
@@ -35,6 +31,8 @@ module.exports = function (options) {
             log.error('Failed to parse the certificate expire input. For a few valid examples check out https://github.com/wanasit/chrono#chrono');
             process.exit();
         }
+
+        return Promise.resolve(true);
     }
 
     // generate a new keypair or use input from options
@@ -51,7 +49,7 @@ module.exports = function (options) {
         certificate = forge.pki.createCertificate();
 
         // get the rsa keyset from options or generate a new one
-        getRsaKeypair();
+        const rsaKeys = getRsaKeypair();
 
         // store rsa keyset in certificate
         certificate.publicKey = rsaKeyset.publicKey;
@@ -61,11 +59,13 @@ module.exports = function (options) {
         certificate.validity.notAfter = certificateAfter;
         certificate.validity.notBefore = certificateBefore;
 
+        // sign the certificate
+        signCrt(rsaKeys, 'localhost');
     }
 
     // Generate a Csr request for a given subject and sign it
     // The only thing that may vary in this is the subject right now
-    function signCrt(subject) {
+    function signCrt(keys, subject) {
 
         // TODO get json file from options
         var attrs = [];
@@ -93,10 +93,24 @@ module.exports = function (options) {
             console.log('Saved ssl private key to: ' + folder + inputFileName + '.key');
         });
     }
+
+    return new Promise((resolve, reject) => {
+        // load initial settings
+        genericSettings()
+            .then((result) => {
+                log.debug('genericSettings result');
+                log.debug(result);
+                resolve();
+            })
+            .catch((err) => {
+                log.error(err);
+                reject();
+            });
+    });
 };
 
 
-//*
+/*
 
 var test = function (options) {
     const forge = require('node-forge');

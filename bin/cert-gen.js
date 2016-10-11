@@ -5,8 +5,6 @@ const commandLineArgs = require('command-line-args');
 const forge = require('node-forge');
 const fs = require('fs');
 
-// http://javascriptplayground.com/blog/2012/08/writing-a-command-line-node-tool/
-
 // argument options
 const optionDefinitions = [
     // general commands
@@ -70,7 +68,6 @@ const optionDefinitions = [
     // rsa only
     {
         name: 'single',
-        alias: 's',
         type: Boolean,
         defaultValue: false,
         default: true
@@ -95,7 +92,6 @@ const optionDefinitions = [
     },
     {
         name: 'subject',
-        multiple: true,
         type: String
     }
 ]
@@ -106,7 +102,11 @@ const options = commandLineArgs(optionDefinitions);
 const log = require('./utils/log')(options.verbose);
 
 // show options if debug is enabled
-log.debug(options);
+log.debug('Executing using options: ');
+Object.keys(options).map((key)=> {
+    log.debug(key + " = " + options[key]);
+})
+
 
 // display help
 if (options.help) {
@@ -125,6 +125,7 @@ if (!options.type) {
     process.exit();
 }
 
+log.debug('');
 log.debug('Selected certificate type: ' + options.type);
 
 // check which to use
@@ -132,9 +133,21 @@ switch (options.type.toLowerCase()) {
     case 'rsa':
         // create rsa certificate with the current options
         require('./rsa.js')(options)();
-        break
-    case 'ssl':
-        require('./ssl.js')(options)();
+        break;
+    case 'ssl' :
+        // create new ssl object
+        const SSL = require('./sslv2.js');
+        var ssl_instance = new SSL(options);
+
+        // generate the certificates
+        ssl_instance.generateCertificate()
+            .then((result)=> {
+                log.debug(result);
+            })
+            .catch((error)=> {
+                log.error(error);
+            });
+
         break;
     default:
         log.error('No valid type given (' + options.type + '). Enter either ssl or rsa');

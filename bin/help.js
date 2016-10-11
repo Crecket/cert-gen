@@ -37,7 +37,6 @@ console.log(getUsage([
             },
             {
                 name: "single",
-                alias: "s",
                 description: "Store files to 1 file with 2 line breaks instead of 2 seperate files. The --public option will be ignored."
             },
             {
