@@ -91,6 +91,10 @@ const optionDefinitions = [
         type: String
     },
     {
+        name: 'rsaPrivate',
+        type: String
+    },
+    {
         name: 'subject',
         type: String
     }
