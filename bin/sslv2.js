@@ -38,7 +38,11 @@ function SSL(options) {
         })
     };
 
-    // parse the before and after dates using chrono
+    /**
+     * parse the before and after dates using chrono
+     *
+     * @returns {Promise}
+     */
     this.parseDates = () => {
         return new Promise((resolve, reject) => {
             // parse the input dates
@@ -64,7 +68,11 @@ function SSL(options) {
         })
     };
 
-    // fetch the issuer and subject info and prompt for file it it is not set
+    /**
+     * fetch the issuer and subject info and prompt for file it it is not set
+     *
+     * @returns {Promise}
+     */
     this.getOptionFiles = () => {
         return new Promise((resolve, reject) => {
 
