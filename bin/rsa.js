@@ -81,22 +81,18 @@ module.exports = function (options) {
 
             // handle the resulting keypair
             handleKeySetResults(keypair, index, function () {
-                if(!queue.next()){
+                if (!queue.next()) {
                 }
             });
         });
     }
 
     return function () {
-        if (options.amount > 1) {
-            queue.start(needsNext);
-        } else {
-            // generate a single keypair
-            generateKeypair(function (keypair) {
+        // generate a single keypair
+        generateKeypair(function (keypair) {
 
-                // handle the resulting keypair
-                handleKeySetResults(keypair);
-            });
-        }
+            // handle the resulting keypair
+            handleKeySetResults(keypair);
+        });
     };
 };

@@ -11,11 +11,16 @@ function SSL(options) {
     const store_file = require('./utils/store_file')(this._options);
     const log = require('./utils/log.js')(this._options.verbose);
 
-    // generate a certificate
+    /**
+     * generate a certificate
+     *
+     * @returns {Promise}
+     */
     this.generateCertificate = () => {
         return new Promise((resolve, reject) => {
             // first parse the dates
             this.parseDates()
+
             // check the issuer option
                 .then(this.checkIssuerInfo)
 

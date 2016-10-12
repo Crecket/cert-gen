@@ -111,16 +111,9 @@ Object.keys(options).map((key)=> {
     log.debug(key + " = " + options[key]);
 })
 
-
 // display help
 if (options.help) {
     require('./help');
-}
-
-// check if the target amount is atleast 1
-if (options.amount <= 0) {
-    log.error('Amount setting has to be 1 or higher');
-    process.exit();
 }
 
 // not looking for help but no type is set, throw a error
